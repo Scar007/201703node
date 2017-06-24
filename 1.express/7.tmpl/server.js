@@ -6,7 +6,7 @@ let app = express();
 //每个中间件都 会处理自己类型的数据，通过请求头中的content-type字段来判断
 //使用此中间件之后，会在req.body
 //Content-Type:application/json
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 //Content-Type:application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended:true}));
 //要在express中使用模板引擎
@@ -48,6 +48,7 @@ app.get('/signup',function(req,res){
   });
 });*/
 app.post('/signup',function(req,res){
+    //req.body请求体对象
     users.push(req.body);
     res.send(users);
 });
