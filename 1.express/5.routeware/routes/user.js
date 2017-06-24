@@ -3,10 +3,13 @@ let express = require('express');
 let router = express.Router();
 //可以通过router定义路由
 router.get('/signup',function(req,res){
-  res.end('注册');
+  res.send('注册');
 });
 router.get('/signin',function(req,res){
-    res.end('登录');
+    res.send('登录');
+});
+router.get('/signout',function(req,res){
+    res.send('退出');
 });
 module.exports = router;
 

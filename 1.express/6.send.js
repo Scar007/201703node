@@ -21,10 +21,12 @@ app.use(function(req,res,next){
     next();
 });
 //express扩展了一个send方法，可以接收任意的数据类型
-app.get('/users',function(req,res){
- res.send(users);
+app.get('/users',function(req,res,next){
+    console.log(next);
+    res.send(users);
+
 });
 app.get('/not',function(req,res){
-    res.send(404);
+    res.send(404+"");
 });
 app.listen(8080);
