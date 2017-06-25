@@ -20,6 +20,11 @@ app.use(express.static(path.resolve('../../node_modules')));
 //只有post请求，并且有请求体的才需要使用此中间件
 app.use(bodyParser.urlencoded({extended:true}));
 app.use('/user',user);
+/**
+ * 如果是一个URL路径一定要加/
+ * 如果是一个文件路径，则需要是相对路径
+ *
+ */
 app.get('/welcome',function(req,res){
     res.send('欢迎光临');
 });
