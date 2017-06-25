@@ -6,6 +6,7 @@
 let express = require('express');
 let path = require('path');
 let bodyParser = require('body-parser');
+let cookieParser = require('cookie-parser');
 let app = express();
 //设置模板引擎
 app.set('view engine','html');
@@ -19,6 +20,8 @@ let user = require('./routes/user');
 app.use(express.static(path.resolve('../../node_modules')));
 //只有post请求，并且有请求体的才需要使用此中间件
 app.use(bodyParser.urlencoded({extended:true}));
+//所有的express中间件都是一个函数，需要执行才能得到真正的中间件函数
+app.use(cookieParser());
 app.use('/user',user);
 /**
  * 如果是一个URL路径一定要加/
@@ -26,6 +29,7 @@ app.use('/user',user);
  *
  */
 app.get('/welcome',function(req,res){
-    res.send('欢迎光临');
+    //req.cookies = querystring.parse(req.headers.cookie,'; ')
+    res.send('欢迎'+req.cookies.username+'光临');
 });
 app.listen(8080);

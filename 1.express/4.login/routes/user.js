@@ -21,9 +21,12 @@ router.post('/signin',function(req,res){
      return user.username == item.username && user.password == item.password
  });
  if(oldUser){
+     //向客户端种植cookie
+    res.cookie('username',oldUser.username);
     res.redirect('/welcome');
  }else{
     res.redirect('back');
  }
 });
+
 module.exports = router;
