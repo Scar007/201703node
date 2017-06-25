@@ -14,7 +14,7 @@ http.createServer(function(req,res){
         let cookie = req.headers.cookie;
         let visit = 1;
         if(cookie){
-            let cookieObj = querystring.parse(cookie);
+            let cookieObj = querystring.parse(cookie,'; ');
             if(cookieObj.visit){
                 visit = parseInt(cookieObj.visit)+1;
             }
