@@ -12,9 +12,12 @@ app.set('view engine','html');
 app.set('views',path.resolve('views'));
 //如果模板的后缀是html的话还是使用ejs的渲染方法来渲染。
 app.engine('html',require('ejs').__express);
-
 let user = require('./routes/user');
-
-
-
+//使用静态文件中间件,它是一个中间件，是一个函数，用来响应客户端对服务器端的静态文件请求
+//用静态文件根目录绝对路径+客户端请求路径得到此静态文件的绝对路径，然后把此文件从硬盘读出到内存中并作为响应体发回给客户端
+app.use(express.static(path.resolve('public')));
+app.use('/user',user);
+/*app.get('/xxx.css',function(req,res){
+  res.sendFile(path.resolve('./public/bootstrap/dist/css/bootstrap.css'));
+});*/
 app.listen(8080);
