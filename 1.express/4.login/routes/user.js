@@ -15,4 +15,15 @@ router.post('/signup',function(req,res){
 router.get('/signin',function(req,res){
   res.render('user/signin',{title:'用户登录'});
 });
+router.post('/signin',function(req,res){
+ let user = req.body;
+ let oldUser = users.find(function(item){
+     return user.username == item.username && user.password == item.password
+ });
+ if(oldUser){
+    res.redirect('/welcome');
+ }else{
+    res.redirect('back');
+ }
+});
 module.exports = router;

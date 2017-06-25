@@ -20,5 +20,7 @@ app.use(express.static(path.resolve('../../node_modules')));
 //只有post请求，并且有请求体的才需要使用此中间件
 app.use(bodyParser.urlencoded({extended:true}));
 app.use('/user',user);
-
+app.get('/welcome',function(req,res){
+    res.send('欢迎光临');
+});
 app.listen(8080);
