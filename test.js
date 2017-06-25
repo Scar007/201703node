@@ -1,12 +1,7 @@
-let obj = {name:'zfpx',home:{
-    province:'guangdong',
-    city:'dongguan'
-}};
-let str1 = require('querystring').stringify(obj);
-console.log(str1);
-let str2 = require('qs').stringify(obj);
-console.log(str2);
-//extended:false
-console.log(require('querystring').parse(str1));
-//extended:true
-console.log(require('qs').parse(str2));
+let cookie = 'name=zfpx; age=9fddfsdfds; home=beijing';
+// let reg = /age=([^;]+)/;
+// let result = cookie.match(reg);
+// console.log(result[1]);
+let querystring = require('querystring');
+let result = querystring.parse(cookie,'; ');
+console.log(result);
