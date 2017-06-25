@@ -22,7 +22,9 @@ router.post('/signin',function(req,res){
  });
  if(oldUser){
      //向客户端种植cookie
-    res.cookie('username',oldUser.username);
+    res.cookie('username',oldUser.username,{
+        domain:'www.zfpx.cn'
+    });
     res.redirect('/welcome');
  }else{
     res.redirect('back');
