@@ -5,6 +5,7 @@
  */
 let express = require('express');
 let path = require('path');
+let bodyParser = require('body-parser');
 let app = express();
 //设置模板引擎
 app.set('view engine','html');
@@ -15,9 +16,9 @@ app.engine('html',require('ejs').__express);
 let user = require('./routes/user');
 //使用静态文件中间件,它是一个中间件，是一个函数，用来响应客户端对服务器端的静态文件请求
 //用静态文件根目录绝对路径+客户端请求路径得到此静态文件的绝对路径，然后把此文件从硬盘读出到内存中并作为响应体发回给客户端
-app.use(express.static(path.resolve('public')));
+app.use(express.static(path.resolve('../../node_modules')));
+//只有post请求，并且有请求体的才需要使用此中间件
+app.use(bodyParser.urlencoded({extended:true}));
 app.use('/user',user);
-/*app.get('/xxx.css',function(req,res){
-  res.sendFile(path.resolve('./public/bootstrap/dist/css/bootstrap.css'));
-});*/
+
 app.listen(8080);
