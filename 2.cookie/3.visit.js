@@ -21,7 +21,9 @@ app.use(cookieParser());
 });*/
 //向客户端写入cookie
 app.get('/write',function(req,res){
-  res.cookie('name','zfpx',{path:'/read1'});
+ // res.cookie('name','zfpx',{path:'/read1'});
+  //  res.cookie('name','zfpx',{maxAge:10*1000});
+    res.cookie('name','zfpx',{expires:new Date(Date.now()+10*1000)});
   res.send('ok');
 });
 app.get('/read1',function(req,res){
