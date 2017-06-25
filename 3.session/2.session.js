@@ -16,6 +16,12 @@ app.get('/read',function(req,res){
 });
 
 app.get('/visit',function(req,res){
-
+  let amount = req.session.amount;
+  if(amount){
+      req.session.amount -= 100;
+  }else{
+      req.session.amount= 1000;
+  }
+  res.send(`你还有${req.session.amount}元`);
 });
 app.listen(8080);
