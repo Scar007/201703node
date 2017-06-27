@@ -3,10 +3,9 @@ class Person{
       //this代表当前组件的实例,私有属性是每个实例所独有的，不共享
       this.name = name;
   }
-  //静态属性 静态属性是属于类
-  static country(){return '中国'}
   //公有的方法,所有的实例共有的方法
   getName(){
+    //Student子类的实例
     console.log(this.getAge());
     return this.name;
   }

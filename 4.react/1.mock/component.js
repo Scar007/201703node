@@ -1,6 +1,6 @@
 class Component{
-    constructor(){
-        this.state = {};
+    constructor(props){
+        this.props = props;
     }
     //渲染 表示这个组件长成什么样子 str html字符串
     createDOMFromString(str) {
@@ -22,11 +22,16 @@ class Component{
     }
 
     render() {
-        this.element = this.createDOMFromString(this.getDOM());
-        //绑定事件
-        this.bindEvent();
-        //返回此dom节点
-        return this.element;
+        if(this.getDOM){
+            this.element = this.createDOMFromString(this.getDOM());
+            //绑定事件
+            this.bindEvent();
+            //返回此dom节点
+            return this.element;
+        }else{
+            alert('子类必须提供getDOM方法');
+        }
+
     }
     //挂载
     mount(container){
