@@ -27,7 +27,7 @@ class Button{
       this.element.addEventListener('click',this.handleClick.bind(this))
   }
   render(){
-      this.createElement();
+     this.createElement();
      return this.element;
   }
 }
