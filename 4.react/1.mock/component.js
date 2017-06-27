@@ -2,11 +2,12 @@ class Component{
     constructor(){
         this.state = {};
     }
-    //渲染 表示这个组件长成什么样子
+    //渲染 表示这个组件长成什么样子 str html字符串
     createDOMFromString(str) {
         //<div><button/></div>
         let div = document.createElement('div');
         div.innerHTML = str;
+        //返回buttonDOM节点
         return div.children[0];
     }
     //设置状态对象1.用新对象替换掉老对象 2. 改变视图,用新的状态对象渲染出新的DOM对象并且替换掉老的DOM对象
@@ -22,7 +23,9 @@ class Component{
 
     render() {
         this.element = this.createDOMFromString(this.getDOM());
+        //绑定事件
         this.bindEvent();
+        //返回此dom节点
         return this.element;
     }
     //挂载
