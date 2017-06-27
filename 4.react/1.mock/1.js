@@ -4,7 +4,7 @@ class Button{
      return (
          `
           <button class="my-btn">
-             <span class="my-text">点赞</span>
+             <span style="color:blue" class="my-text">点赞</span>
           </button>
          `
      )
