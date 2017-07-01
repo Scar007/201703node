@@ -1,3 +1,7 @@
+/**
+ * 1. 组件化
+ * 2. 减少DOM操作
+ */
 class Component{
     constructor(props){
         this.props = props;
