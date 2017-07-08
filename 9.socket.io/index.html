@@ -5,6 +5,12 @@
     <title>Title</title>
     <link rel="stylesheet"
           href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .user{
+            color:blue;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -15,7 +21,7 @@
                     <h3 class="text-center">欢迎来到珠峰聊天室</h3>
                 </div>
                 <div class="panel-body">
-                    <ul class="list-group" id="messages">
+                    <ul class="list-group" id="messages" onclick="clickMessages(event)">
 
                     </ul>
                 </div>
@@ -52,10 +58,19 @@
     //因为此socket是经过socket.io包装过的，所以可以用
     socket.on('message',function(msgObj){
       let li = document.createElement('li');
-      li.innerHTML = `<span>${msgObj.username}</span>:${msgObj.content} <span>${msgObj.createAt.toLocaleString()}</span>`;
+      li.innerHTML = `<span class="user">${msgObj.username}</span>:${msgObj.content} <span class="pull-right">${msgObj.createAt}</span>`;
       li.className = 'list-group-item';
       messagesUl.appendChild(li);
     });
+    //当点击messages的ul的时候执行一个函数
+    function clickMessages(event){
+      //判断当前点击的是用户名的span
+      if(event.target.className == 'user'){
+        //先获取用户名，然后给txtInput赋值 @用户名空格
+        let username = event.target.innerText;
+        txtInput.value = `@${username} `;
+      }
+    }
 </script>
 </body>
 </html>
