@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客户端</title>
+</head>
+<body>
+
+</body>
+<script>
+ //webSocket没有跨域问题
+ let socket = new WebSocket('ws://localhost:8080');
+ //监听连接成功事件
+ socket.onopen = function(){
+   console.log('客户端连接成功');
+   socket.send('服务器你好');
+ }
+ //客户端监听服务器端的消息
+ socket.onmessage = function(event){
+   console.log(event.data);//event.data才能拿到消息内容
+ }
+</script>
+</html>
