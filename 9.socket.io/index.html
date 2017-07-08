@@ -15,12 +15,12 @@
                     <h3 class="text-center">欢迎来到珠峰聊天室</h3>
                 </div>
                 <div class="panel-body">
-                    <ul class="list-group">
+                    <ul class="list-group" id="messages">
 
                     </ul>
                 </div>
                 <div class="panel-footer">
-                    <form class="row">
+                    <form class="row" onsubmit="send(event)">
                         <div class="col-md-11">
                             <input type="text" class="form-control">
                         </div>
@@ -33,5 +33,29 @@
         </div>
     </div>
 </div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    //socket.io.js文件会在window对象上面挂载一个io的属性对象。
+    //socket代表与服务器的连接对象
+    let socket = io();
+    //先得到输入框DOM对象
+    let txtInput = document.querySelector('.form-control');
+    let messagesUl = document.querySelector('#messages');
+    function send(event){
+      event.preventDefault();
+      //先获取到输入框的值
+      let txt = txtInput.value;
+      //发服务器发送消息
+      socket.send(txt);
+      txtInput.value = '';
+    }
+    //因为此socket是经过socket.io包装过的，所以可以用
+    socket.on('message',function(msg){
+      let li = document.createElement('li');
+      li.innerHTML = msg;
+      li.className = 'list-group-item';
+      messagesUl.appendChild(li);
+    });
+</script>
 </body>
 </html>

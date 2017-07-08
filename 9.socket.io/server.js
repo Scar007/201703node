@@ -12,6 +12,28 @@ app.get('/',function(req,res){
 });
 //然后会得到一个服务器的实例
 let server = require('http').createServer(app);
+//io是一个服务器端实例
+let io = require('socket.io')(server);
+//监听客户端的连接事件，当客户端连接成功之后会执行对应的回调函数，并封装一个socket对象传入回调函数
+io.on('connection',function(socket){
+  socket.on('message',function(msg){
+    //把消息发送给所有的客户端
+    io.emit('message',msg);
+    //把消息发送给某个客户端
+    //socket.send('hello');
+    //socket.emit('message','hello');
+  });
+});
+
+/*function send(){
+  var args = Array.prototype.slice.call(arguments);
+  //args = ['hello']
+  args.unshift('message');
+  //args = ['message','hello']
+  this.emit.apply(this, args);
+  //socket.emit('message','hello');
+  return this;
+};*/
 
 server.listen(8080);
 /**
