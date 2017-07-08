@@ -47,12 +47,12 @@
       let txt = txtInput.value;
       //发服务器发送消息
       socket.send(txt);
-      txtInput.value = '';
+      txtInput.value = "";
     }
     //因为此socket是经过socket.io包装过的，所以可以用
-    socket.on('message',function(msg){
+    socket.on('message',function(msgObj){
       let li = document.createElement('li');
-      li.innerHTML = msg;
+      li.innerHTML = `<span>${msgObj.username}</span>:${msgObj.content} <span>${msgObj.createAt.toLocaleString()}</span>`;
       li.className = 'list-group-item';
       messagesUl.appendChild(li);
     });
