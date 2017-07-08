@@ -61,8 +61,9 @@
       socket.send(txt);
       txtInput.value = "";
     }
+    //传入一个msgObj对象，返回一个li内部的字符串
     function format(msgObj){
-      return `<span class="user">${msgObj.username}</span>:${msgObj.content} <span class="pull-right">${msgObj.createAt}</span>`;
+      return `<span class="user">${msgObj.username}</span>:${msgObj.content} <span class="pull-right">${new Date(msgObj.createAt).toLocaleString()}</span>`;
     }
     //因为此socket是经过socket.io包装过的，所以可以用
     socket.on('message',function(msgObj){
