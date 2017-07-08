@@ -4,6 +4,8 @@ let express = require('express');
 //app会在客户端请求到来的时候执行
 let app = express();
 app.get('/clock',function(req,res){
+  //我作为服务器，我允许本机的63342端口来访问我这个服务器
+  res.setHeader('Access-Control-Allow-Origin','http://localhost:63342');
   res.send(new Date().toLocaleString());
 });
 //在特定的端口上监听客户端的请求

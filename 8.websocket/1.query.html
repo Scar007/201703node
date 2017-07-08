@@ -8,8 +8,25 @@
 <div id="clock"></div>
 <script>
   setInterval(function () {
-
-  }, 1000)
+     let xhr = new XMLHttpRequest();//创建ajax对象
+     xhr.open('GET','http://localhost:8080/clock',true);//打开连接
+     //当状态发生变化的时候执行回调函数
+    /**
+     * 0 初始态
+     * 1 打开连接之后 打开态
+     * 2 发送之后
+     * 3 接收到第一个响应的时候
+     * 4 响应全部接收完毕
+     */
+    xhr.onreadystatechange = function(){
+      //当响应全部接收完毕，并且响应回来的状态码为200的时候
+      if(xhr.readyState == 4 && xhr.status == 200){
+          document.querySelector('#clock').innerHTML = xhr.responseText;//它的类型永远是字符串
+          //xhr.response;//它的类型取决于xhr.responeType=json
+      }
+    }
+    xhr.send();
+  }, 1000);
 </script>
 </body>
 </html>
