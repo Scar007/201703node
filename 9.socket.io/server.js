@@ -35,13 +35,15 @@ io.on('connection',function(socket){
             content,
             createAt:new Date().toLocaleString()
           });
+       }else{
+         //把消息发送给所有的客户端
+         io.emit('message',{
+           username,
+           content:msg,
+           createAt:new Date().toLocaleString()
+         });
        }
-       //把消息发送给所有的客户端
-       io.emit('message',{
-         username,
-         content:msg,
-         createAt:new Date().toLocaleString()
-       });
+
      }else{
        username = msg;//把客户端发过来的第一条消息当成此用户的用户名
        //记录一下用户名和它对应的socket对象的关系
