@@ -70,14 +70,21 @@ let pageSize = 3;
 //skip 是跳过指定的条数
 //skip限定返回的条数
 //exec = execute 执行
-User.find({})
-  .sort({age:-1})
-  .skip(pageSize*(pageNum-1))
-  .limit(pageSize)
-  .exec(function(err,docs){
-    console.log(docs);//1-> 4 5 6  -1=> 7 6 5
-  });
+// User.find({})
+//   .sort({age:-1})
+//   .skip(pageSize*(pageNum-1))
+//   .limit(pageSize)
+//   .exec(function(err,docs){
+//     console.log(docs);//1-> 4 5 6  -1=> 7 6 5
+//   });
 
+User.findOne({},function(err,doc){
+  console.log(doc);
+});
+
+User.findById('595728e2637dfd04984d0761',function(err,doc){
+  console.log(doc);
+});
 
 
 
