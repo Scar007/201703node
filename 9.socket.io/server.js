@@ -21,6 +21,7 @@ let sockets = {};
 io.on('connection',function(socket){
   //保存用户名，因为每个客户端都需要一个用户名，所以要放在函数里
   let username;
+  let currentRoom;//当前的房间名
   socket.on('message',function(msg){
      if(username){
        //判断是公聊还是私聊 @ 用户名只要不是空格就行 内容随意
@@ -41,7 +42,14 @@ io.on('connection',function(socket){
          Message.create({
            username, content:msg
          }).then(function(doc){
-           io.emit('message',doc);
+           //根据当前用户是否在一个房间内判断如何发消息
+           if(currentRoom){
+             //如果在某一个房间人， 那么只向房间内的人进行广播
+             io.in(currentRoom).emit('message',doc);
+           }else{
+             //否则 全局广播
+             io.emit('message',doc);
+           }
          })
        }
      }else{
@@ -67,6 +75,16 @@ io.on('connection',function(socket){
       //在服务器向客户端发送自定义的事件类型
       socket.emit('allMessages',docs);
     })
+  });
+  socket.on('join2',function(roomName){
+    if(currentRoom){
+      //离开一个房间
+      socket.leave(currentRoom);
+    }
+    //让当前的socket进入某个房间
+    socket.join(roomName);
+    //让当前房间等于这次传过来的房间名
+    currentRoom  = roomName;
   });
 });
 

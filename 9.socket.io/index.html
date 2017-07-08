@@ -18,7 +18,10 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="text-center">欢迎来到珠峰聊天室</h3>
+                    <h3 class="text-center">欢迎来到珠峰聊天室
+                        <button class="btn btn-danger" onclick="join2('red')">粉红回忆</button>
+                        <button class="btn btn-success" onclick="join2('green')">青涩记忆</button>
+                    </h3>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group" id="messages" onclick="clickMessages(event)">
@@ -87,6 +90,11 @@
           `<li class="list-group-item">${format(doc)}</li>`
         )).join('')
     });
+
+    function join2(roomName){
+       //告诉服务器当前的客户端要加入到某个房间内了
+        socket.emit('join2',roomName);
+    }
 </script>
 </body>
 </html>
