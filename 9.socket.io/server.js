@@ -5,6 +5,7 @@
  */
 let express = require('express');
 let path = require('path');
+let Message = require('./model');
 let app = express();
 //path must be absolute or specify root to res.sendFile
 app.get('/',function(req,res){
@@ -37,11 +38,12 @@ io.on('connection',function(socket){
           });
        }else{
          //把消息发送给所有的客户端
-         io.emit('message',{
-           username,
-           content:msg,
-           createAt:new Date().toLocaleString()
-         });
+         Message.create({
+           username, content:msg
+         }).then(function(doc){
+           console.log(doc);
+           io.emit('message',doc);
+         })
        }
 
      }else{
@@ -84,6 +86,7 @@ server.listen(8080);
  *    1.让用户名可点击，点击的时候会在输入框中出现 @用户名 xxx
  *    2. 发送给服务器后，服务器要判断是否是私聊，如果是私聊的话会把此消息单独发给对应的用户
  * 4. 消息持久化到数据库中
+ *
  * 5. 当打开页面的时候自动加载最近的20条数据
  * 6. 实现分房间聊天功能
  **/
