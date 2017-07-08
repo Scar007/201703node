@@ -41,11 +41,9 @@ io.on('connection',function(socket){
          Message.create({
            username, content:msg
          }).then(function(doc){
-           console.log(doc);
            io.emit('message',doc);
          })
        }
-
      }else{
        username = msg;//把客户端发过来的第一条消息当成此用户的用户名
        //记录一下用户名和它对应的socket对象的关系
@@ -60,6 +58,15 @@ io.on('connection',function(socket){
     //把消息发送给某个客户端
     //socket.send('hello');
     //socket.emit('message','hello');
+  });
+  //监听客户端的事件 ，要求服务器端返回最近20条记录
+  socket.on('getAllMessages',function(){
+    //查询出最近20条记录，先按创建时间倒序排列，然后取最上面的20条。
+    Message.find().sort({createAt:-1}).limit(20).exec(function(err,docs){
+      docs.reverse();//把数组倒序
+      //在服务器向客户端发送自定义的事件类型
+      socket.emit('allMessages',docs);
+    })
   });
 });
 
