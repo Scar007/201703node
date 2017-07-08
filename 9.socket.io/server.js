@@ -15,12 +15,27 @@ let server = require('http').createServer(app);
 //io是一个服务器端实例 websocket服务器是依赖http服务器
 let io = require('socket.io')(server);
 //监听客户端的连接事件，当客户端连接成功之后会执行对应的回调函数，并封装一个socket对象传入回调函数
-
+//这是一个全局的对象，记录着所有的客户端用户名和socket对应关系
+let sockets = {};
 io.on('connection',function(socket){
   //保存用户名，因为每个客户端都需要一个用户名，所以要放在函数里
   let username;
   socket.on('message',function(msg){
      if(username){
+       //判断是公聊还是私聊 @ 用户名只要不是空格就行 内容随意
+       let reg = /@([^ ]+) (.+)/;
+       let result = msg.match(reg);
+       //如果匹配上那么就是私聊
+       if(result){
+          let toUser = result[1];//对方的用户名
+          let content = result[2];//想说的话
+         //找到私聊对方的socket对象并且发送消息
+          sockets[toUser].send({
+            username,
+            content,
+            createAt:new Date().toLocaleString()
+          });
+       }
        //把消息发送给所有的客户端
        io.emit('message',{
          username,
@@ -29,6 +44,8 @@ io.on('connection',function(socket){
        });
      }else{
        username = msg;//把客户端发过来的第一条消息当成此用户的用户名
+       //记录一下用户名和它对应的socket对象的关系
+       sockets[username]  = socket;
        io.emit('message',{//向所有的客户端广播，说有新人来了
          username:'系统',//用户名
          content:`欢迎${username}来到聊天室`,//内容
