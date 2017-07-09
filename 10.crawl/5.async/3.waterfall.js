@@ -8,7 +8,7 @@ async.waterfall([
      setTimeout(function(){
        console.log('买茄子');
        callback(null,'茄子');
-     },2000)
+     },2000);
    },
   //第二个开始函数有二个参数,第一个参数成为上一个任务的返回值
    function(data,callback){
