@@ -1,0 +1,29 @@
+let async = require('async');
+/**
+ * waterfall也是串行，只不过上一个任务的输出会传递给下一个任务作为参数
+ */
+async.waterfall([
+   //第一个函数只有一个参数
+   function(callback){
+     setTimeout(function(){
+       console.log('买茄子');
+       callback(null,'茄子');
+     },2000)
+   },
+  //第二个开始函数有二个参数,第一个参数成为上一个任务的返回值
+   function(data,callback){
+     setTimeout(function(){
+       console.log('炒'+data);
+       callback(null,'熟'+data);
+     },2000)
+   },
+  function(data,callback){
+    setTimeout(function(){
+      console.log('吃'+data);
+      callback(null,'over');
+    },1000);
+  }
+],function(err,result){
+  console.log(err);
+  console.log(result);
+});

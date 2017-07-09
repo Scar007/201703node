@@ -1,0 +1,20 @@
+let async = require('async');
+console.time('cost');
+async.parallel([
+  function(callback){
+     setTimeout(function(){
+       console.log('买鸡蛋');
+       callback(null,'鸡蛋');
+     },3000)
+  },
+  function(callback){
+    setTimeout(function(){
+      console.log('买米饭');
+      callback(null,'米饭');
+    },2000)
+  }
+],function(err,result){
+  console.log(err);
+  console.log(result);
+  console.timeEnd('cost')
+});

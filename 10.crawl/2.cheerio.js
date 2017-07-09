@@ -26,7 +26,6 @@ app.get('/',function(req,res){
             foods[index][i] = $(em).text();
         });
      });
-     console.log(foods);
      res.render('index',{foods});
   })
 });

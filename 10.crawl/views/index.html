@@ -16,7 +16,17 @@
        <th>发布日期</th>
     </thead>
     <tbody>
-
+        <%
+          foods.forEach(function(food){%>
+            <tr>
+                <%
+                  food.forEach(function(item){%>
+                       <td><%=item%></td>
+                <%})
+                %>
+            </tr>
+        <%})
+        %>
     </tbody>
 </table>
 </body>
