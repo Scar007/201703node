@@ -1,5 +1,5 @@
 let express = require('express');
-let path = requre('path');
+let path = require('path');
 let app = express();
 let request = require('request');
 let url = 'http://www.xinfadi.com.cn';
