@@ -55,12 +55,21 @@ io.on('connection',function(socket){
      }else{
        username = msg;//把客户端发过来的第一条消息当成此用户的用户名
        //记录一下用户名和它对应的socket对象的关系
-       sockets[username]  = socket;
-       io.emit('message',{//向所有的客户端广播，说有新人来了
-         username:'系统',//用户名
-         content:`欢迎${username}来到聊天室`,//内容
-         createAt:new Date().toLocaleString() //创建时间
-       });
+       if(sockets[msg]){
+          socket.send({//向所有的客户端广播，说有新人来了
+            username:'系统',//用户名
+            content:`此用户名已经被人用了，请换个吧`,//内容
+            createAt:new Date().toLocaleString() //创建时间
+          });
+       }else{
+         sockets[username]  = socket;
+         io.emit('message',{//向所有的客户端广播，说有新人来了
+           username:'系统',//用户名
+           content:`欢迎${username}来到聊天室`,//内容
+           createAt:new Date().toLocaleString() //创建时间
+         });
+       }
+
      }
 
     //把消息发送给某个客户端
