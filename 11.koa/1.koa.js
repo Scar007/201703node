@@ -11,7 +11,7 @@ app.use(async function(ctx){
   //就相当于以前res.end('hello');
   //let content = fs.readFileSync('./1.txt','utf8');
   //异步方法都没有返回值
-  //async(异步) await(等待)
+  //async(异步) await(等待)最底层的await返回需要是Promise对象
   let content = await readFile();
   ctx.body = content;
 });
